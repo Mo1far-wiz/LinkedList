@@ -1,6 +1,6 @@
 #include <iostream>
 
-template<typename T=std::int16_t>
+template<typename T>
 class LinkedList
 {
 private:
