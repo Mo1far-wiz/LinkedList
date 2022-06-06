@@ -53,6 +53,18 @@ int main() {
     nlist.pop_back();
     nlist.display();
 
+    std::cout << std::endl << "move" << std::endl;
+
+    nlist = std::move(list);
+    nlist.pop_front();
+    nlist.pop_front();
+    nlist.display();
+    std::cout << std::endl;
+
+    LinkedList<int> l(std::move(nlist));
+
+    l.pop_back();
+    l.display();
 
     return 0;
 }

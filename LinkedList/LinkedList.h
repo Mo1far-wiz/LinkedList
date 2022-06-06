@@ -22,10 +22,8 @@ public:
 
 
 	~LinkedList() {
-		Node* prev;
-
 		while (_head != nullptr) {
-			prev = _head;
+			Node* prev = _head;
 			_head = _head->_next;
 			delete prev;
 		}
@@ -39,6 +37,25 @@ public:
 			other_head = other_head->_next;
 		}
 	}
+
+	LinkedList(LinkedList&& other) noexcept : _head(std::move(other._head)), _size(std::move(other._size)) {
+		other._head = nullptr;
+		other._size = 0;
+	}
+
+	LinkedList& operator=(LinkedList&& other) noexcept {
+		if (&other == this)
+			return *this;
+
+		_head = std::move(other._head);
+		other._head = nullptr;
+
+		_size = std::move(other._size);
+		other._size = 0;
+
+		return *this;
+	}
+
 	LinkedList& operator=(const LinkedList& other) {
 		if (this == &other || (other.get_head() == nullptr && _head == nullptr))
 			return *this;
