@@ -13,8 +13,43 @@ private:
 		Node() = delete;
 	};
 
+
 	Node* _head;
 	size_t _size;
+
+	struct Iterator {
+
+		using value_type = Node;
+		using pointer = Node*;  // or also value_type*
+		using reference = Node&;  // or also value_type&
+
+		Iterator(pointer ptr) : _ptr(ptr){}
+
+		reference operator*() const { return *_ptr; }
+		pointer operator->() const { return _ptr; }
+
+		Iterator& operator++() {
+			_ptr = _ptr->_next;
+			return *this;
+		}	
+		Iterator& operator++(int) {
+			Iterator tmp = *this;
+			++(*this);
+			return *this;
+		}
+
+		bool operator==(const Iterator& other) const {
+			return	other._ptr == _ptr;
+		}
+		bool operator!=(const Iterator& other) const {
+			return	other._ptr != _ptr;
+		}
+
+	private:
+		pointer _ptr;
+
+	};
+
 
 public: 
 	
@@ -38,7 +73,7 @@ public:
 		}
 	}
 
-	LinkedList(LinkedList&& other) noexcept : _head(std::move(other._head)), _size(other._size) {
+	LinkedList(LinkedList&& other) noexcept : _head(std::move(other._head)), _size(other._size){
 		other._head = nullptr;
 		other._size = 0;
 	}
@@ -89,6 +124,8 @@ public:
 
 		return *this;
 	}
+
+
 
 	void push_front(const T& data){
 		Node* new_node = new Node(data);
@@ -162,6 +199,13 @@ public:
 			std::cout << ptr->_val << " ";
 			ptr = ptr->_next;
 		}
+	}
+
+	Iterator begin() {
+		return Iterator(_head);
+	}
+	Iterator end() {
+		return Iterator(nullptr);
 	}
 
 	Node* get_head() const {
