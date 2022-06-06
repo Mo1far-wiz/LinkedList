@@ -38,7 +38,7 @@ public:
 		}
 	}
 
-	LinkedList(LinkedList&& other) noexcept : _head(std::move(other._head)), _size(std::move(other._size)) {
+	LinkedList(LinkedList&& other) noexcept : _head(std::move(other._head)), _size(other._size) {
 		other._head = nullptr;
 		other._size = 0;
 	}
@@ -50,7 +50,7 @@ public:
 		_head = std::move(other._head);
 		other._head = nullptr;
 
-		_size = std::move(other._size);
+		_size = other._size;
 		other._size = 0;
 
 		return *this;
