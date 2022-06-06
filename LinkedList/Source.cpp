@@ -78,8 +78,6 @@ int main() {
     auto iter_begin = l.begin();
     auto iter_end = l.end();
 
-    std::cout << iter_begin->_val << std::endl;
-
 
     for (; iter_begin != iter_end; ++iter_begin) {
         std::cout << iter_begin->_val << std::endl;
